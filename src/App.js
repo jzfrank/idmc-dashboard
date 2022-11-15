@@ -5,52 +5,6 @@ import EventQuery from "./components/EventQuery";
 import NavBar from "./components/NavBar";
 import { useState } from "react";
 import { nodes } from "./dummyData";
-import cellWrapper from "./utility/cellWrapper";
-
-const COLUMNS = [
-  {
-    label: "Day",
-    renderCell: (item) => cellWrapper(item.day),
-  },
-  {
-    label: "Event Type",
-    renderCell: (item) => cellWrapper(item.eventType),
-  },
-  { label: "Event Name", renderCell: (item) => cellWrapper(item.eventName) },
-  {
-    label: "title",
-    renderCell: (item) => cellWrapper(item.title),
-  },
-  {
-    label: "text",
-    renderCell: (item) => cellWrapper(item.text),
-  },
-  {
-    label: "displacement",
-    renderCell: (item) => cellWrapper(item.displacement),
-  },
-
-  // {
-  //   label: "Number of Death",
-  //   renderCell: (item) => cellWrapper(item.numberOfDeath),
-  // },
-  {
-    label: "State",
-    renderCell: (item) => cellWrapper(item.state),
-  },
-  {
-    label: "City",
-    renderCell: (item) => cellWrapper(item.city),
-  },
-  {
-    label: "url",
-    renderCell: (item) => (
-      <a href={item.url} title={item.url}>
-        {item.url}
-      </a>
-    ),
-  },
-];
 
 function App() {
   const [data, setData] = useState({ nodes });
@@ -86,7 +40,7 @@ function App() {
           getLastDaysData={getLastDaysData}
           setDays={setLastDays}
         />
-        <DataTable data={data} columns={COLUMNS} />
+        <DataTable data={data} />
       </div>
       <footer className="text-center h-10">
         <p className="font-light text-gray-400">Made by: H4G Team for IDMC</p>
