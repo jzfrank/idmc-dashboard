@@ -4,92 +4,51 @@ import DataTable from "./components/DataTable";
 import EventQuery from "./components/EventQuery";
 import NavBar from "./components/NavBar";
 import { useState } from "react";
-
-// dummy test data
-const nodes = [
-  {
-    day: "2022-10-25",
-    eventType: "human_disaster",
-    eventName: "flood",
-    description: "brief snippet from article",
-    numberPeopleDisplaced: 10000,
-    numberOfDeath: 50,
-    state: "somewhere",
-    city: "somewhere",
-    url: "www.example.com",
-    id: 1,
-  },
-  {
-    day: "2022-10-25",
-    eventType: "natural_disaster",
-    eventName: "flood",
-    description: "brief snippet from article",
-    numberPeopleDisplaced: 10000,
-    numberOfDeath: 50,
-    state: "somewhere",
-    city: "somewhere",
-    url: "www.example.com",
-    id: 1,
-  },
-  {
-    day: "2022-10-28",
-    eventType: "natural_disaster",
-    eventName: "flood",
-    description: "brief snippet from article",
-    numberPeopleDisplaced: 10000,
-    numberOfDeath: 50,
-    state: "somewhere",
-    city: "somewhere",
-    url: "www.example.com",
-    id: 2,
-  },
-  {
-    day: "2022-10-28",
-    eventType: "natural_disaster",
-    eventName: "earthquake",
-    description: "brief snippet from article",
-    numberPeopleDisplaced: 10000,
-    numberOfDeath: 50,
-    state: "somewhere",
-    city: "somewhere",
-    url: "www.example.com",
-    id: 3,
-  },
-];
+import { nodes } from "./dummyData";
+import cellWrapper from "./utility/cellWrapper";
 
 const COLUMNS = [
   {
     label: "Day",
-    renderCell: (item) => item.day,
+    renderCell: (item) => cellWrapper(item.day),
   },
   {
     label: "Event Type",
-    renderCell: (item) => item.eventType,
+    renderCell: (item) => cellWrapper(item.eventType),
   },
-  { label: "Event Name", renderCell: (item) => item.eventName },
+  { label: "Event Name", renderCell: (item) => cellWrapper(item.eventName) },
   {
-    label: "Description",
-    renderCell: (item) => item.description,
-  },
-  {
-    label: "People Displaced",
-    renderCell: (item) => item.numberPeopleDisplaced,
+    label: "title",
+    renderCell: (item) => cellWrapper(item.title),
   },
   {
-    label: "Number of Death",
-    renderCell: (item) => item.numberOfDeath,
+    label: "text",
+    renderCell: (item) => cellWrapper(item.text),
   },
+  {
+    label: "displacement",
+    renderCell: (item) => cellWrapper(item.displacement),
+  },
+
+  // {
+  //   label: "Number of Death",
+  //   renderCell: (item) => cellWrapper(item.numberOfDeath),
+  // },
   {
     label: "State",
-    renderCell: (item) => item.state,
+    renderCell: (item) => cellWrapper(item.state),
   },
   {
     label: "City",
-    renderCell: (item) => item.city,
+    renderCell: (item) => cellWrapper(item.city),
   },
   {
     label: "url",
-    renderCell: (item) => item.url,
+    renderCell: (item) => (
+      <a href={item.url} title={item.url}>
+        {item.url}
+      </a>
+    ),
   },
 ];
 
@@ -97,6 +56,10 @@ function App() {
   const [data, setData] = useState({ nodes });
   const [lastDays, setLastDays] = useState(7);
   const getLastDaysData = (lastDays) => {
+    lastDays = lastDays.trim();
+    if (lastDays.length === 0) {
+      lastDays = 365;
+    }
     const today = new Date();
     const todayDate = new Date(
       today.getFullYear(),
@@ -117,7 +80,7 @@ function App() {
   return (
     <div className="h-screen flex flex-col">
       <NavBar />
-      <div className="container m-auto content-start ">
+      <div className="container m-auto mt-5 content-start ">
         <EventQuery
           lastDays={lastDays}
           getLastDaysData={getLastDaysData}
