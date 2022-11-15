@@ -45,10 +45,10 @@ const DataTable = ({ data }) => {
       label: "State",
       renderCell: (item) => cellWrapper(item.state),
     },
-    {
-      label: "City",
-      renderCell: (item) => cellWrapper(item.city),
-    },
+    // {
+    //   label: "City",
+    //   renderCell: (item) => cellWrapper(item.city),
+    // },
     {
       label: "url",
       renderCell: (item) => (
